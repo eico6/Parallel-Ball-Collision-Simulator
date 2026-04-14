@@ -3,6 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
+                "C:/raylib/include",
                 "${workspaceFolder}/**"
             ],
             "defines": [

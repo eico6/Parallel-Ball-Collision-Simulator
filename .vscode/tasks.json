@@ -6,13 +6,18 @@
       "type": "shell",
       "command": "g++",
       "args": [
-        "-std=gnu++17",
-        "-g",
-        "-Wall",
-        "-Wextra",
-        "*.cpp",
-        "-o",
-        "app"
+          "-std=gnu++17",
+          "-g",
+          "-Wall",
+          "-Wextra",
+          "*.cpp",
+          "-IC:/raylib/include",
+          "-LC:/raylib/lib",
+          "-o", "app",
+          "-lraylib",
+          "-lopengl32",
+          "-lgdi32",
+          "-lwinmm"
       ],
       "group": {
         "kind": "build",
