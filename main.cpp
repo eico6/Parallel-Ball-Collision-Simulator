@@ -3,8 +3,6 @@
 #include "ball.h"
 
 int main() {
-    // std::cout << add(2, 3) << '\n';
-
     InitWindow(800, 600, "Bouncing Ball");
 
     Vector2 pos = {400, 300};
