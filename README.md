@@ -1,6 +1,13 @@
-"# Parallel-Ball-Collision-Simulator" 
+# Parallel-Bouncing-Balls
 
-Ask Chat to translate from Java to C++
+## Development notes
+- C++ version: g++.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8) 13.2.0
+- Graphics library: raylib version 5.5
+
+
+## TEMP
+
+Java code:
 
 ```
 package com.example;

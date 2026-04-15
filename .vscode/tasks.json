@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "g++",
       "args": [
-          "-std=gnu++17",
+          "-std=gnu++23",
           "-g",
           "-Wall",
           "-Wextra",
