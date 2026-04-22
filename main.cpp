@@ -31,17 +31,31 @@ static std::vector<Ball> spawnBalls(int n, double radius, const Rect& bounds) {
     return balls;
 }
 
+/*
+export OMP_NUM_THREADS=?
+*/
 int main() {
     double gravity = 0;
 
     Rect bounds = {0, 0, WIDTH, HEIGHT};
 
+    for (size_t i = 0; i < 100; i++)
+    {
+        printf("%d\n", omp_get_thread_num());
+    }
+    
+
     int    n      = 1000;
     double radius = 1.0;
+    int num_threads = 1;
     printf("How many balls?\n");
     scanf("%d", &n);
     printf("What's the radius?\n");
     scanf("%lf", &radius);
+    printf("How many threads?\n");
+    scanf("%d", &num_threads);
+
+    omp_set_num_threads(num_threads);
 
     std::vector<Ball> balls = spawnBalls(n, radius, bounds);
 
@@ -53,7 +67,7 @@ int main() {
     for (const CellKey& cell : grid.getCells(bounds))
         grid.set(cell, {});
 
-    SimulationSeq simulation(gravity, bounds, balls, grid);
+    SimulationPar simulation(gravity, bounds, balls, grid);
     View view(simulation);
 
     InitWindow(WIDTH, HEIGHT, "Ball Collision Simulator");
