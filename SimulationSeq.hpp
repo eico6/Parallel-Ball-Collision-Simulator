@@ -1,11 +1,12 @@
 #pragma once
 #include "Ball.hpp"
 #include "Grid.hpp"
+#include "Simulation.hpp"
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
-class SimulationSeq {
+class SimulationSeq : public Simulation {
 public:
     const double gravity;
     const Rect bounds;
@@ -44,9 +45,9 @@ public:
         // On2();
     }
 
-    const Rect& getBounds() const { return bounds; }
-    std::vector<Ball>& getBalls() { return balls; }
-    const Grid<std::vector<Ball*>>& getGrid() const { return grid; }
+    const Rect& getBounds() const override { return bounds; }
+    std::vector<Ball>& getBalls() override { return balls; }
+    const Grid<std::vector<Ball*>>& getGrid() const override { return grid; }
 
 private:
     std::unordered_map<Ball*, std::unordered_set<Ball*>> checkedPairs;

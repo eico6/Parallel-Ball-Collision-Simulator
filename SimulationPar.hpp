@@ -1,12 +1,13 @@
 #pragma once
 #include "Ball.hpp"
 #include "Grid.hpp"
+#include "Simulation.hpp"
 #include <omp.h>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
-class SimulationPar {
+class SimulationPar : public Simulation {
 public:
     const double gravity;
     const Rect bounds;
@@ -28,13 +29,13 @@ public:
             kv.second.clear();
         }
 
-        #pragma omp parallel for nowait
+        // #pragma omp parallel for nowait
         for (Ball& b : balls) {
             b.velocity = b.velocity.add(0, gravity / FPS);
             b.position = b.position.add(Vector::div(b.velocity, FPS));
         }
         
-        #pragma omp parallel for
+        // #pragma omp parallel for
         for (Ball& b : balls){
             resolveWallCollision(b);
         }
@@ -63,9 +64,9 @@ public:
         }
     }
 
-    const Rect& getBounds() const { return bounds; }
-    std::vector<Ball>& getBalls() { return balls; }
-    const Grid<std::vector<Ball*>>& getGrid() const { return grid; }
+    const Rect& getBounds() const override { return bounds; }
+    std::vector<Ball>& getBalls() override { return balls; }
+    const Grid<std::vector<Ball*>>& getGrid() const override { return grid; }
 
 private:
     std::unordered_map<Ball*, std::unordered_set<Ball*>> checkedPairs;

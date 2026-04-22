@@ -2,6 +2,7 @@
 #include "Ball.hpp"
 #include "Grid.hpp"
 #include "SimulationSeq.hpp"
+#include "SimulationPar.hpp"
 #include "View.hpp"
 
 #include <vector>

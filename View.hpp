@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.h"
-#include "SimulationSeq.hpp"
+#include "Simulation.hpp"
 #include "Constants.hpp"
 
 static Color getColor(int id) {
@@ -17,9 +17,9 @@ static Color getColor(int id) {
 
 class View {
 public:
-    SimulationSeq& sim;
+    Simulation& sim;
 
-    explicit View(SimulationSeq& sim) : sim(sim) {}
+    explicit View(Simulation& sim) : sim(sim) {}
 
     void draw(int fps) {
         BeginDrawing();
