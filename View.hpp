@@ -37,7 +37,14 @@ public:
         DrawText(TextFormat("Target FPS: %d", FPS), 10, 20, 20, WHITE);
         DrawText(TextFormat("FPS: %d", fps), 10, 40, 20, WHITE);
         DrawText(TextFormat("Balls: %d", (int)sim.getBalls().size()), 10, 60, 20, WHITE);
-        DrawText(TextFormat("Threads: %d", omp_get_num_threads()), 10, 80, 20, WHITE);
+        #pragma omp parallel
+        {
+            #pragma omp single
+            {
+
+                DrawText(TextFormat("Threads: %d", omp_get_num_threads()), 10, 80, 20, WHITE);
+            }
+        }
 
         EndDrawing();
     }

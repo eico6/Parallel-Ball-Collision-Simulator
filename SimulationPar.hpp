@@ -29,42 +29,38 @@ public:
             kv.second.clear();
         }
 
-        #pragma omp parallel
-        {
-            #pragma omp for nowait
-            for (Ball& b : balls) {
-                b.velocity = b.velocity.add(0, gravity / FPS);
-                b.position = b.position.add(Vector::div(b.velocity, FPS));
-            }
-            
-            #pragma omp for
-            for (Ball& b : balls){
-                resolveWallCollision(b);
-            }
+        #pragma omp parallel for
+        for (size_t i = 0; i < balls.size(); i++){
+            Ball &b = balls[i];
+
+            b.velocity = b.velocity.add(0, gravity / FPS);
+            b.position = b.position.add(Vector::div(b.velocity, FPS));
+
+            resolveWallCollision(b);
         }
 
-        for (Ball& b : balls){
-            addToGrid(b);
-        }
+        // for (Ball& b : balls){
+        //     addToGrid(b);
+        // }
 
-        for (auto& kv : grid) {
-            std::vector<Ball*>& cell = kv.second;
-            for (int i = 0; i < (int)cell.size(); i++) {
-                Ball* a = cell[i];
-                for (int j = i + 1; j < (int)cell.size(); j++) {
-                    Ball* b = cell[j];
-                    if (checkedPairs[a].count(b)){
-                        continue;
-                    }
-                    if (a->overlaps(*b)) {
-                        checkedPairs[a].insert(b);
-                        checkedPairs[b].insert(a);
-                        resolveOverlap(*a, *b);
-                        resolveCollision(*a, *b);
-                    }
-                }
-            }
-        }
+        // for (auto& kv : grid) {
+        //     std::vector<Ball*>& cell = kv.second;
+        //     for (int i = 0; i < (int)cell.size(); i++) {
+        //         Ball* a = cell[i];
+        //         for (int j = i + 1; j < (int)cell.size(); j++) {
+        //             Ball* b = cell[j];
+        //             if (checkedPairs[a].count(b)){
+        //                 continue;
+        //             }
+        //             if (a->overlaps(*b)) {
+        //                 checkedPairs[a].insert(b);
+        //                 checkedPairs[b].insert(a);
+        //                 resolveOverlap(*a, *b);
+        //                 resolveCollision(*a, *b);
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     const Rect& getBounds() const override { return bounds; }
