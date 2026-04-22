@@ -18,6 +18,7 @@
           "-lopengl32",
           "-lgdi32",
           "-lwinmm"
+          "-fopenmp"
       ],
       "group": {
         "kind": "build",
