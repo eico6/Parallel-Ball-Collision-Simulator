@@ -29,15 +29,18 @@ public:
             kv.second.clear();
         }
 
-        // #pragma omp parallel for nowait
-        for (Ball& b : balls) {
-            b.velocity = b.velocity.add(0, gravity / FPS);
-            b.position = b.position.add(Vector::div(b.velocity, FPS));
-        }
-        
-        // #pragma omp parallel for
-        for (Ball& b : balls){
-            resolveWallCollision(b);
+        #pragma omp parallel
+        {
+            #pragma omp for nowait
+            for (Ball& b : balls) {
+                b.velocity = b.velocity.add(0, gravity / FPS);
+                b.position = b.position.add(Vector::div(b.velocity, FPS));
+            }
+            
+            #pragma omp for
+            for (Ball& b : balls){
+                resolveWallCollision(b);
+            }
         }
 
         for (Ball& b : balls){
