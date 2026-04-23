@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run raylib app",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/app",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build raylib",
+            "MIMode": "lldb"
+        }
+    ]
+}
