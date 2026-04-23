@@ -19,7 +19,8 @@
                 "-framework",
                 "CoreVideo",
                 "-o",
-                "app"
+                "app",
+                "fopenmp"
             ],
             "group": {
                 "kind": "build",
