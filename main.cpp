@@ -41,7 +41,7 @@ int main() {
     Rect bounds = {0, 0, WIDTH, HEIGHT};
 
     
-    int    n      = 1000;
+    int    n      = 10000;
     double radius = 1.0;
     int num_threads = 1;
     // printf("How many balls?\n");
@@ -85,7 +85,7 @@ int main() {
             printf("fps = %d\n", fps);
         }
 
-        view.draw(fps);
+        // view.draw(fps);
     }
 
     CloseWindow();

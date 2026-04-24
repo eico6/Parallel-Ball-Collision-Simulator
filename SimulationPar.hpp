@@ -39,33 +39,32 @@ public:
         
         // UNSAFE PARALLELIZATION: grid has shared state
         // #pragma omp parallel for 
-        for (Ball& b : balls){
-            addToGrid(b);
-        }
+        // for (Ball& b : balls){
+        //     addToGrid(b);
+        // }
         
-        std::vector<CellKey> cells = grid.cells();
+        // std::vector<CellKey> cells = grid.cells();
 
-        // #pragma omp parallel for // UNSAFE PARALLELIZATION: checkedPairs and ball state are shared
-        for (auto& cell : cells) {
-            std::vector<Ball*> empty;
-            std::vector<Ball*>& list = grid.getOrDefault(cell, empty);
+        // // #pragma omp parallel for // UNSAFE PARALLELIZATION: checkedPairs and ball state are shared
+        // for (auto& cell : cells) {
+        //     std::vector<Ball*>& list = *grid.get(cell);
             
-            for (int i = 0; i < (int)list.size(); i++) {
-                Ball* a = list[i];
-                for (int j = i + 1; j < (int)list.size(); j++) {
-                    Ball* b = list[j];
-                    if (checkedPairs[a].count(b)){
-                        continue;
-                    }
-                    if (a->overlaps(*b)) {
-                        checkedPairs[a].insert(b);
-                        checkedPairs[b].insert(a);
-                        resolveOverlap(*a, *b);
-                        resolveCollision(*a, *b);
-                    }
-                }
-            }
-        }
+        //     for (int i = 0; i < (int)list.size(); i++) {
+        //         Ball* a = list[i];
+        //         for (int j = i + 1; j < (int)list.size(); j++) {
+        //             Ball* b = list[j];
+        //             if (checkedPairs[a].count(b)){
+        //                 continue;
+        //             }
+        //             if (a->overlaps(*b)) {
+        //                 checkedPairs[a].insert(b);
+        //                 checkedPairs[b].insert(a);
+        //                 resolveOverlap(*a, *b);
+        //                 resolveCollision(*a, *b);
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     const Rect& getBounds() const override { return bounds; }
