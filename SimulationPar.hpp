@@ -89,10 +89,6 @@ private:
         };
         for (const CellKey& cell : grid.getCells(ballBounds)) {
             auto it = locks.find(cell);
-
-            // cell not pre-registered = skip
-            // - this can occur when ballBounds retrieves cells outside of the grid
-            if (it == locks.end()) continue; 
             
             omp_set_lock(it->second);
             grid.get(cell)->push_back(&b);
