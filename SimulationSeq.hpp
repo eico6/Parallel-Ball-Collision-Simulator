@@ -24,22 +24,19 @@ public:
 
     void update() {
         grid.clear();
-        for (auto& kv : checkedPairs) kv.second.clear();
+        for (auto& kv : checkedPairs) {
+            kv.second.clear();
+        }
 
-        // Apply gravity and integrate position
         for (Ball& b : balls) {
             b.velocity = b.velocity.add(0, gravity / FPS);
             b.position = b.position.add(Vector::div(b.velocity, FPS));
-        }
-
-        // Wall collisions
-        for (Ball& b : balls)
+            
             resolveWallCollision(b);
-
-        // Insert into grid
-        for (Ball& b : balls)
+            
             addToGrid(b);
-
+        }
+            
         // Grid-based O(n) collision detection
         On();
         // On2();
