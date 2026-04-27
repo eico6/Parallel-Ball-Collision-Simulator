@@ -14,6 +14,8 @@ public:
     std::vector<Ball>& balls;
     Grid& grid;
 
+    double clearTime, addToGridTime, collisionTime;
+
     SimulationPar(double gravity, Rect bounds,
                   std::vector<Ball>& balls,
                   Grid& grid)
@@ -36,6 +38,7 @@ public:
     }
 
     void update() {
+        clearTime = omp_get_wtime();
         #pragma omp parallel for
         for (auto list : cellLists) {
             list->clear();
@@ -43,9 +46,10 @@ public:
         #pragma omp parallel for
         for (auto set : pairSets) {
             set->clear();
-
         }
-        
+        clearTime = omp_get_wtime() - clearTime;
+
+        addToGridTime = omp_get_wtime();
         #pragma omp parallel for // SAFE PARALLELIZATION
         for (Ball& b : balls){
             b.velocity = b.velocity.add(0, gravity / FPS);
@@ -55,7 +59,9 @@ public:
             
             addToGrid(b);
         }
+        addToGridTime = omp_get_wtime() - addToGridTime;
         
+        collisionTime = omp_get_wtime();
         #pragma omp parallel for // How to parallelize this
         for (auto& list : cellLists) {
             for (int i = 0; i < (int)list->size(); i++) {
@@ -76,6 +82,7 @@ public:
                 }
             }
         }
+        collisionTime = omp_get_wtime() - collisionTime;
     }
 
     const Rect& getBounds() const override { return bounds; }

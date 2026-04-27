@@ -84,6 +84,11 @@ int main() {
             frames     = 0;
             lastFpsTime = now;
             printf("fps = %d\n", fps);
+
+            printf("clear time = \t\t%lf\n", simulation.clearTime);
+            printf("add to grid time = \t%lf\n", simulation.addToGridTime);
+            printf("collision time = \t%lf\n", simulation.collisionTime);
+            printf("total time = \t\t%lf\n\n", simulation.collisionTime + simulation.addToGridTime + simulation.collisionTime);
         }
 
         // view.draw(fps);
