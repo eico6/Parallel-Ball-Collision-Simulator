@@ -9,19 +9,13 @@ struct Ball {
     Vector velocity;
     const double radius;
     const double mass;
-    const double elasticity;
 
-    Ball(double x, double y, double radius, double elasticity)
+    Ball(double x, double y, double radius)
         : id(nextID++),
           position(x, y),
           velocity(0, 0),
           radius(radius),
-          mass(radius * radius),
-          elasticity(elasticity) {}
-
-    void update() {
-        position = position.add(velocity.scale(1.0 / FPS));
-    }
+          mass(radius * radius) {}
 
     bool overlaps(const Ball& other) const {
         double dx = position.x - other.position.x;

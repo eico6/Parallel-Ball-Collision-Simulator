@@ -22,7 +22,7 @@ static std::vector<Ball> spawnBalls(int n, double radius, const Rect& bounds) {
         double x = bounds.getX() + (double)rand() / RAND_MAX * bounds.getWidth();
         double y = bounds.getY() + (double)rand() / RAND_MAX * bounds.getHeight();
 
-        Ball b(x, y, radius, 1.0);
+        Ball b(x, y, radius);
         b.velocity = {
             ((double)rand() / RAND_MAX - 0.5) * 1000,
             ((double)rand() / RAND_MAX - 0.5) * 1000
@@ -63,7 +63,8 @@ int main() {
     for (const CellKey& cell : grid.getCells(bounds))
         grid.set(cell, {});
 
-    SimulationPar simulation(gravity, bounds, balls, grid);
+    SimulationSeq simulation(gravity, bounds, balls, grid);
+    // SimulationPar simulation(gravity, bounds, balls, grid);
     View view(simulation);
 
     InitWindow(WIDTH, HEIGHT, "Ball Collision Simulator");
