@@ -23,7 +23,9 @@ public:
     }
 
     void update() {
-        grid.clear();
+        for (auto& kv : grid){
+            kv.second.clear();
+        }
         for (auto& kv : checkedPairs) {
             kv.second.clear();
         }
@@ -37,9 +39,23 @@ public:
             addToGrid(b);
         }
             
-        // Grid-based O(n) collision detection
-        On();
-        // On2();
+        for (auto& kv : grid) {
+            std::vector<Ball*>& cell = kv.second;
+            for (int i = 0; i < (int)cell.size(); i++) {
+                Ball* a = cell[i];
+                for (int j = i + 1; j < (int)cell.size(); j++) {
+                    Ball* b = cell[j];
+                    if (a->overlaps(*b)) {
+                        if (!checkedPairs[a].count(b)){
+                            checkedPairs[a].insert(b);
+                            checkedPairs[b].insert(a);
+                            resolveOverlap(*a, *b);
+                            resolveCollision(*a, *b);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     const Rect& getBounds() const override { return bounds; }
@@ -49,40 +65,6 @@ public:
 private:
     std::unordered_map<Ball*, std::unordered_set<Ball*>> checkedPairs;
 
-    void On() {
-        for (auto& kv : grid) {
-            std::vector<Ball*>& cell = kv.second;
-            for (int i = 0; i < (int)cell.size(); i++) {
-                Ball* a = cell[i];
-                for (int j = i + 1; j < (int)cell.size(); j++) {
-                    Ball* b = cell[j];
-                    // Skip already-checked pairs
-                    if (checkedPairs[a].count(b))
-                        continue;
-                    if (a->overlaps(*b)) {
-                        checkedPairs[a].insert(b);
-                        checkedPairs[b].insert(a);
-                        resolveOverlap(*a, *b);
-                        resolveCollision(*a, *b);
-                    }
-                }
-            }
-        }
-    }
-
-    void On2() {
-        for (int i = 0; i < (int)balls.size(); i++) {
-            Ball& a = balls[i];
-            for (int j = i + 1; j < (int)balls.size(); j++) {
-                Ball& b = balls[j];
-                if (a.overlaps(b)) {
-                    resolveOverlap(a, b);
-                    resolveCollision(a, b);
-                }
-            }
-        }
-    }
-
     void addToGrid(Ball& b) {
         Rect ballBounds = {
             b.position.x - b.radius,
@@ -91,8 +73,6 @@ private:
             2 * b.radius
         };
         for (const CellKey& cell : grid.getCells(ballBounds)) {
-            if (grid.get(cell) == nullptr)
-                grid.set(cell, {});
             grid.get(cell)->push_back(&b);
         }
     }
