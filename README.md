@@ -10,5 +10,8 @@
 - C++ version: g++.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8) 13.2.0
 - Graphics library: raylib version 5.5
 
-# Visualization of Simulation
+## Visualization of Simulation
 <img width="658" height="491" alt="bouncing_balls_visualization" src="https://github.com/user-attachments/assets/dbfb8773-d6b5-4fef-85fd-ac39df6b9ccd" />
+
+## Results preview
+<img width="604" height="431" alt="strong_scaling_50k" src="https://github.com/user-attachments/assets/93c4b3fd-bed8-4c9e-ab13-3196afec3829" />
