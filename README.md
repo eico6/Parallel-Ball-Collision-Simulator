@@ -11,4 +11,4 @@
 - Graphics library: raylib version 5.5
 
 # Visualization of Simulation
-<img width="470" height="351" alt="bouncing_balls_visualization" src="https://github.com/user-attachments/assets/dbfb8773-d6b5-4fef-85fd-ac39df6b9ccd" />
+<img width="658" height="491" alt="bouncing_balls_visualization" src="https://github.com/user-attachments/assets/dbfb8773-d6b5-4fef-85fd-ac39df6b9ccd" />
